@@ -1,5 +1,14 @@
 #ifndef MONTY_H
 #define MONTY_H
+#include <stdio.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+
+#define BUFSIZE 120
 
 /**
 * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -32,4 +41,5 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+size_t open_file(char *file_path);
 #endif
