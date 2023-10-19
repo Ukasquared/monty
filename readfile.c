@@ -63,7 +63,7 @@ int main(int ac, char *av[])
 			new_mem = realloc(buffer, buf_size);
 			if (!new_mem)
 				return (0);
-			/* Assign a new memory to buffer */
+			/* Assign new memory location to buffer */
 			buffer = new_mem;
 		}
 		/* */
@@ -76,13 +76,19 @@ int main(int ac, char *av[])
 		exit(EXIT_FAILURE);
 	}
 	close(file_fd);
-
+	/*new_mem = strtok(buffer, "\n");*/
+	/* temp_len = strlen(new_mem);*/
 	n_write = write(STDOUT_FILENO, buffer, buf_size);
+	/*n_write = write(STDOUT_FILENO, new_mem, temp_len);*/
 	if (n_write == -1 || n_write < buf_size)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to stdout");
 		exit(EXIT_FAILURE);
 	}
+
+
+	/* free allocated buffer memory */
+	free(buffer);
 
 	return (0);
 
