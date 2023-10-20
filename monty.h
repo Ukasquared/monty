@@ -44,4 +44,8 @@ void (*accept(char *token))(stack_t **stack, int line_number);
 
 
 size_t open_file(char *file_path);
+ssize_t is_empty_string(char *str, char *delim);
+list_t *create_token_list(char *str, char *delim);
+char **create_token_arr(list *h);
+
 #endif
