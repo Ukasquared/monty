@@ -24,6 +24,7 @@ void pall_func(stack_t **stack, unsigned int line_number)
 	ptr = *stack;
 	while (ptr != NULL)
 	{
+		line_number--;
 		printf("%d\n", ptr->data);
 		ptr = ptr->next;
 	}
