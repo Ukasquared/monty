@@ -54,6 +54,7 @@ typedef  struct list_s
 	size_t len;
 	struct list_s *next;
 } list_t;
+void (*accept(char *token))(stack_t **stack, int line_number);
 
 size_t open_file(char *file_path);
 ssize_t is_empty_string(char *str, char *delim);
