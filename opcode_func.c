@@ -29,12 +29,9 @@ void (*accept(char *token))(stack_t **stack, int line_number)
 			return (stack_func[i].f);
 		}
 	}
-	else
-	{
-		/* prints error to standard error stream */
-		dprintf(STDERR_FILENO, "L%lu: unknown instruction %s",
-				line_number, stack_arr[i])
-	}
+	/* prints error to standard error stream */
+	dprintf(STDERR_FILENO, "L%lu: unknown instruction %s",
+			line_number, token)
 	/*returns NULL instead of pointer to function */
 	return (NULL);
 }
