@@ -42,4 +42,8 @@ typedef struct instruction_s
 } instruction_t;
 
 size_t open_file(char *file_path);
+ssize_t is_empty_string(char *str, char *delim);
+list_t *create_token_list(char *str, char *delim);
+char **create_token_arr(list *h);
+
 #endif
