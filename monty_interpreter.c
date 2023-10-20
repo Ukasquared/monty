@@ -57,6 +57,8 @@ int main(int ac, char *av[])
 		/* parse the line read from file*/
 		bytecode_arr = parse_line(lineptr);
 		/* perform error checks */
+		if (bytecode_arr == NULL)
+			continue;
 		/* get opcode function using the first item in array*/
 		/* if opcode function is returned */
 		/* if the array_size == 2 */
