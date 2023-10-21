@@ -1,5 +1,45 @@
 #define _POSIX_C_SOURCE 200809L
 #include "monty.h"
+stack_t *stack_top = NULL;
+
+/**
+ * open_file - open a file
+ * @file: file name
+ *
+ * Return: return file deescriptor or exit if file can't be open
+ */
+int open_file(char *file)
+{
+
+	int fd, f_status;
+
+	fd = -1;
+	f_status = -1;
+
+	if (file == NULL)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't open file <%s>\n", file);
+		exit(EXIT_FAILURE);
+	}
+
+	/* confirm file exist and grants read access */
+	f_status = access(file, R_OK);
+	if (f_status == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't open file <%s>\n", file);
+		exit(EXIT_FAILURE);
+	}
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't open file <%s>\n", file);
+		exit(EXIT_FAILURE);
+	}
+
+	return (fd);
+}
+
 /**
  * main - entry point of the interpreter program
  * @ac: count of the command line args passed to the program
@@ -10,21 +50,7 @@
 int main(int ac, char *av[])
 {
 	/* declare variables */
-	ssize_t supply_count;
-	int fd;
-	size_t n, line_num;
-	char *lineptr, **bytecode_arr;
-	stack_t *head, *stack_top;
-
-
-	/* initialize variables */
-	supply_count = 0;
-	lineptr = NULL;
-	n = 0;
-	line_num = 0;
-	head = NULL;
-	stack_top = NULL;
-	errno = 0;
+	int fd, status, f_status;
 
 
 	if (ac != 2)
@@ -35,41 +61,24 @@ int main(int ac, char *av[])
 
 	fd = open_file(av[1]);
 
+	/* read file lines */
 	while (1)
 	{
-		/* get line from file */
-		supply_count = _getline(&lineptr, &n, fd);
-		/* perform error checks */
-		if (supply_count == -1)
+		status = process_file_line(fd);
+		/* perform error check */
+		if (status == 0)
+			break;
+		if (status == -1)
 		{
-			if (errno == 0)
-			{
-				break;
-			}
-			else
-			{
-				free(lineptr);
-				exit(EXIT_FAILURE);
-			}
+			dprintf(STDERR_FILENO, "Error: Can't read file <%s>\n", av[1]);
+			close(fd);
+			exit(EXIT_FAILURE);
 		}
-		/* increment file line counter */
-		line_num++;
-		/* parse the line read from file*/
-		bytecode_arr = parse_line(lineptr);
-		/* perform error checks */
-		if (bytecode_arr == NULL)
-			continue;
-		/* get opcode function using the first item in array*/
-		/* if opcode function is returned */
-		/* if the array_size == 2 */
-		/* convert the second item in the array to integer and pass it to the
-		 * opcode function */
-		/* pass the head of the stack to the opcode function */
-		/* the opcode function will return pointer to stack top */
 	}
 
 
-	free(lineptr);
+	/* exit program */
+	close(fd);
 	exit(EXIT_SUCCESS);
 }
 
