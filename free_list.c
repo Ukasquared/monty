@@ -1,11 +1,11 @@
-#include "main.h"
+#include "monty.h"
 /**
  * free_list - frees allocated memory in a linked list
- * @head: pointer to the linked list
+ * @stack_head: pointer to the linked list
  *
- * Return: Nothing
+ * Return: void
  */
-void free_list(list_t *head)
+void free_list(list_t **stack_head)
 {
 	/* declare variables */
 	list_t *currentNode;
@@ -15,16 +15,13 @@ void free_list(list_t *head)
 	currentNode = NULL;
 
 
-	if (head)
+	if (stack_head && *stack_head)
 	{
-		while (head->next != NULL)
+		if ((*stack_head)->next != NULL)
 		{
-			currentNode = head;
-			head = head->next;
-			free(currentNode->str);
+			currentNode = *stack_head;
+			*stack_head = (*stack_head)->next;
 			free(currentNode);
 		}
-		free(head->str);
-		free(head);
 	}
 }
