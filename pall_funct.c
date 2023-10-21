@@ -12,7 +12,7 @@ void pall_func(stack_t **stack, unsigned int line_number)
 	stack_t *ptr;
 
 	/* check if null was passed into the function */
-	if (!stack && *stack == NULL)
+	if (!stack || *stack == NULL)
 	{
 		dprintf(STDERR_FILENO, "L%lu: usage: pall\n", line_number);
 		exit(EXIT_FAILURE);
