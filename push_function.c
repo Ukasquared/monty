@@ -2,12 +2,12 @@
 
 /**
  * push_func - inserts a node into the stack
- * @stack: linked list
+ * @stack_top: linked list
  * @line_number: tracks line number
  * Return: void
  */
 
-void push_func(stack_t **stack, unsigned int line_number)
+void push_func(stack_t **stack_top, unsigned int line_number)
 {
 	/* declare the stack_t pointers */
 	stack_t *temp, *new;
@@ -26,9 +26,9 @@ void push_func(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	/* check if an integer is passed */
-	if (data != -1 && atoi(data))
+	if (bytecode_arr[1] != -1 && atoi(bytecode_arr[1]))
 	{
-		new->n = atoi(data);
+		new->n = atoi(bytecode_arr[1]);
 	}
 	else
 	{
@@ -37,15 +37,10 @@ void push_func(stack_t **stack, unsigned int line_number)
 	}
 	new->prev = NULL;
 	new->next = NULL;
-
 	if (*stack == NULL)
-	{
 		*stack = new;
-	}
-	else
-	{
-		temp = *stack;
-		stack->prev = new;
-		new->next = *stack;
-		*stack = new;
-	}}
+	temp = *stack;
+	stack->prev = new;
+	new->next = *stack;
+	*stack = new;
+}
