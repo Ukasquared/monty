@@ -2,18 +2,21 @@
 
 /**
  * pop_funct - prints the value at the top of the stack
- * @stack: linked list
+ * @stack_top: linked list
  * @line_number: number of line
  * Return: void
  */
 
-void pop_funct(stack_t **stack, unsigned int line_number)
+void pop_funct(stack_t **stack_top, unsigned int line_number)
 {
-	line_number++;
-	if (!stack || *stack == NULL)
+	stack_t *temp;
+	line_number--`;
+	if (!stack_top || *stack_top == NULL)
 	{
 		dprintf(STDERR_FILENO, " L%lu: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	free_node(stack);
+	temp = *stack_top;
+	*stack_top = (*stack_top)->next;
+	free_node(temp);
 }
