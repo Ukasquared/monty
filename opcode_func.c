@@ -7,7 +7,7 @@
  * Return: function pointer if succesful
  */
 
-void (*accept(char *token))(stack_t **stack, int line_number)
+void (*accept(char *token))(stack_t **stack, unsigned int line_number)
 {
 	int i;
 	/* array of structs using the template in monty.h */

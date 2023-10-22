@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 /**
  * free_list - frees allocated memory in a linked list
  * @head: pointer to the linked list
@@ -10,10 +10,8 @@ void free_list(list_t *head)
 	/* declare variables */
 	list_t *currentNode;
 
-
 	/* initialize variable */
 	currentNode = NULL;
-
 
 	if (head)
 	{

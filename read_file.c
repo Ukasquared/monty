@@ -2,24 +2,20 @@
 /**
  * process_file_line - process
  *
- *
- *
- *
- *
- *
+ * @fd: file descriptor
+ * Return: ..
  */
 int process_file_line(int fd)
 {
 	ssize_t supply_count;
 	char *lineptr, **bytecode_arr;
 	size_t n;
+	void (*f)(stack_t **stack, unsigned int line_num);
 
 	/* initialize variables */
 	suppy_count = 0;
 	line_ptr = NULL;
 	n = 0;
-
-
 
 	/* get line from file */
 	supply_count = _getline(&lineptr, &n, fd);
@@ -49,5 +45,6 @@ int process_file_line(int fd)
 	}
 
 	/* execute op code */
-	execute_op()
+	f = accept(bytecode_arr[0]);
+	f(&stack_top, 0);
 }

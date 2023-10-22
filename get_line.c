@@ -11,17 +11,16 @@ ssize_t read_file(int fd, char **buf, size_t *n)
 {
 	char *new_mem, *mem;
 	ssize_t n_read, supply_count;
-	size_t buf_size, i;
-
+	ssize_t buf_size, i;
 
 	i = 0;
 	errno = 0;
 	buf_size = BUFSIZE;
 	supply_count = 0;
 
-	mem = *buf
+	mem = *buf;
 
-	while ((n_read = read(fd, mem + supply_count, bufsize - supply_count)) > 0)
+	while ((n_read = read(fd, mem + supply_count, buf_size - supply_count)) > 0)
 	{
 		supply_count += n_read;
 
@@ -30,19 +29,19 @@ ssize_t read_file(int fd, char **buf, size_t *n)
 		{
 			if (mem[i] == '\n')
 			{
-				mem[i] == '\0';
+				mem[i] = '\0';
 				/* set file offset to the point where new line byte was found */
 				if (lseek(fd, i, SEEK_SET) == -1)
 				{
 					/* print error message (please update)*/
 				}
-				return supply_count;
+				return i;
 			}
 		}
 		/* check if the buffer is full, and if so, reallocate it */
-		if (supply_count >= bufsize)
+		if (supply_count >= buf_size)
 		{
-			bufsize += BUFSIZE;
+			buf_size += BUFSIZE;
 			new_mem = malloc(sizeof(char) * buf_size);
 			if (new_mem == NULL)
 			{
@@ -52,7 +51,7 @@ ssize_t read_file(int fd, char **buf, size_t *n)
 			free(mem);
 			mem = new_mem;
 			*buf = mem;
-			*n = bufsize;
+			*n = buf_size;
 		}
 	}
 
@@ -63,45 +62,44 @@ ssize_t read_file(int fd, char **buf, size_t *n)
 	}
 
 	/* read failed */
-	return (-1)
+	return (-1);
 }
+
 /**
  * _getline - read an entire line from file
  *
- *
- *
- *
- *
- *
- *
+ * @lineptr: ...
+ * @n: ...
+ * @fd: ..S
+
  */
 ssize_t _getline(char **lineptr, size_t *n, int fd)
 {
 	char *mem;
-	size_t buf_size, i;
+	size_t buf_size;
+	int supply_count;
 
 	/* initialize variables */
 	buf_size = BUFSIZE;
 	supply_count = 0;
 	mem = NULL;
 
-
-	if (*lineptr == NULL || *n = 0)
+	if (*lineptr == NULL || *n == 0)
 	{
-		mem = malloc(sizeof(char) * bufsize);
+		mem = malloc(sizeof(char) * buf_size);
 		if (mem == NULL)
 		{
 			/* Error malloc failed */
 		}
 		*lineptr = mem;
-		*n = bufsize;
+		*n = buf_size;
 	}
 
 	/* call read_file funct */
 	supply_count = read_file(fd, lineptr, n);
 	/* perform error check */
-	if (supply_count == -1)
+	if (supply_count < 0)
 		return (-1);
 
-	return (suppy_count);
+	return (supply_count);
 }
