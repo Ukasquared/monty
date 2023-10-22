@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 
 /**
  * push_func - inserts a node into the stack
@@ -10,7 +10,7 @@
 void push_func(stack_t **stack_top, unsigned int line_number)
 {
 	/* declare the stack_t pointers */
-	stack_t *temp, *new;
+	stack_t *new;
 
 	/* increase line number */
 	line_number += 1;
@@ -22,7 +22,7 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
-		dprintf(STDERR_FILENO, "Error: malloc failed");
+		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	/* check if an integer is passed */
@@ -32,7 +32,7 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 	}
 	else
 	{
-		dprintf(STDERR_FILENO, "L%lu: usage: push integer", line_number);
+		dprintf(STDERR_FILENO, "L%u: usage: push integer", line_number);
 		exit(EXIT_FAILURE);
 	}
 	new->prev = NULL;
@@ -41,7 +41,6 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 		*stack_top = new;
 	else
 	{
-		temp = *stack_top;
 		(*stack_top)->prev = new;
 		new->next = *stack_top;
 		*stack_top = new;

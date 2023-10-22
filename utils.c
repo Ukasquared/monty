@@ -22,7 +22,6 @@ ssize_t is_empty_string(char *str, char *delim)
 	if (*str_ptr == '\0')
 		return (-1);
 
-
 	return (0);
 }
 /**
@@ -35,7 +34,7 @@ ssize_t is_empty_string(char *str, char *delim)
 list_t *create_token_list(char *str, char *delim)
 {
 	/* declare variable */
-	char  *line, *token;
+	char *line, *token;
 	list_t *head, *node;
 
 	/* initialize variable */
@@ -64,7 +63,7 @@ list_t *create_token_list(char *str, char *delim)
 char **create_token_arr(list_t *h)
 {
 	/* declare variables */
-	list *temp;
+	list_t *temp;
 	char **ptr_arr;
 	size_t arr_size, arr_idx;
 
@@ -80,7 +79,7 @@ char **create_token_arr(list_t *h)
 	while (temp != NULL)
 	{
 		ptr_arr[arr_idx] = strdup(temp->str);
-		if (ptr_arr[arr_idx] == NULL && errno == ENONEM)
+		if (ptr_arr[arr_idx] == NULL && errno == ENOMEM)
 		{
 			free_list(h);
 			return (NULL);

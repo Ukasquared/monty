@@ -6,12 +6,12 @@
  *Return: void
  */
 
-void pint_func(stack_t stack_top, unsigned int line_number)
+void pint_func(stack_t **stack_top, unsigned int line_number)
 {
 	line_number++;
 	if (!stack_top || *stack_top == NULL)
 	{
-		dprintf(STDERR_FILENO, " L%lu: can't pint, stack empty\n", line_number);
+		dprintf(STDERR_FILENO, " L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack_top)->n);

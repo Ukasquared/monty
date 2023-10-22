@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define _POSIX_C_SOURCE 200809L
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <sys/types.h>
@@ -68,13 +69,15 @@ char **create_token_arr(list_t *h);
 list_t *add_node_end(list_t **head, const char *str);
 void free_list(list_t *head);
 int process_file_line(int fd);
+ssize_t _getline(char **lineptr, size_t *n, int fd);
+char **parse_line(char *str, char *delim);
 size_t list_len(const list_t *h);
 void add_func(stack_t **stack_top, unsigned int line_number);
 void free_node(stack_t **stack_head);
-void pint_func(stack_t stack_top, unsigned int line_number);
+void pint_func(stack_t **stack_top, unsigned int line_number);
 void pall_func(stack_t **stack_top, unsigned int line_number);
-void pop_funct(stack_t **stack_top, unsigned int line_number);
+void pop_func(stack_t **stack_top, unsigned int line_number);
 void push_func(stack_t **stack_top, unsigned int line_number);
-void swap_funct(stack_t **stack_top, unsigned int line_number);
+void swap_func(stack_t **stack_top, unsigned int line_number);
 
 #endif

@@ -13,8 +13,8 @@ int process_file_line(int fd)
 	void (*f)(stack_t **stack, unsigned int line_num);
 
 	/* initialize variables */
-	suppy_count = 0;
-	line_ptr = NULL;
+	supply_count = 0;
+	lineptr = NULL;
 	n = 0;
 
 	/* get line from file */
@@ -31,7 +31,7 @@ int process_file_line(int fd)
 	/* increment file line counter */
 	line_num++;
 	/* parse the line read from file*/
-	bytecode_arr = parse_line(lineptr);
+	bytecode_arr = parse_line(lineptr, " ");
 	/* error check for empty line in file */
 	if (bytecode_arr == NULL)
 		return (1);
@@ -39,7 +39,7 @@ int process_file_line(int fd)
 	if (accept(bytecode_arr[0]) == NULL)
 	{
 		/* print invalid instruction error message */
-		dprintf("Invalid instruction");
+		dprintf(STDERR_FILENO, "Invalid instruction");
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
@@ -47,4 +47,5 @@ int process_file_line(int fd)
 	/* execute op code */
 	f = accept(bytecode_arr[0]);
 	f(&stack_top, 0);
+	return ();
 }
