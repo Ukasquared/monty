@@ -50,8 +50,7 @@ int open_file(char *file)
 int main(int ac, char *av[])
 {
 	/* declare variables */
-	int fd, status, f_status;
-
+	int fd, status; /*f_status */
 
 	if (ac != 2)
 	{
@@ -76,9 +75,7 @@ int main(int ac, char *av[])
 		}
 	}
 
-
 	/* exit program */
 	close(fd);
 	exit(EXIT_SUCCESS);
 }
-

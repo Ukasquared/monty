@@ -14,9 +14,9 @@ void add_func(stack_t **stack_top, unsigned int line_number)
 
 	count = 2;
 
-	if (!stack_top || !(*stack) || !((*stack)->next))
+	if (!stack_top || !(*stack_top) || !((*stack_top)->next))
 	{
-		dprintf(STDERR_FILENO, "L%lu: can't add, stack too short", line_number);
+		dprintf(STDERR_FILENO, "L%u: can't add, stack too short", line_number);
 		exit(EXIT_FAILURE);
 	}
 	ptr = *stack_top;

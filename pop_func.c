@@ -1,13 +1,13 @@
 #include "monty.h"
 
 /**
- * pop_funct - deletes the value at the top of the stack
+ * pop_func - deletes the value at the top of the stack
  * @stack_top: linked list
  * @line_number: number of line
  * Return: void
  */
 
-void pop_funct(stack_t **stack_top, unsigned int line_number)
+void pop_func(stack_t **stack_top, unsigned int line_number)
 {
 	line_number--;
 	if (!stack_top || *stack_top == NULL)

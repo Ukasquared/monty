@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 /**
  * add_node_end - adds a new node at the end of a linked list
  * @head: pointer to pointer to the beginning of the list
