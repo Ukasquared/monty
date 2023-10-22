@@ -67,5 +67,12 @@ char **create_token_arr(list *h);
 list_t *add_node_end(list_t **head, const char *str);
 void free_list(list_t *head);
 size_t list_len(const list_t *h);
+void add_func(stack_t **stack_top, unsigned int line_number);
+void free_node(stack_t **stack_head);
+void pint_func(stack_t stack_top, unsigned int line_number);
+void pall_func(stack_t **stack_top, unsigned int line_number);
+void pop_funct(stack_t **stack_top, unsigned int line_number);
+void push_func(stack_t **stack_top, unsigned int line_number);
+void swap_funct(stack_t **stack_top, unsigned int line_number);
 
 #endif
