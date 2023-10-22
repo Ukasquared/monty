@@ -1,3 +1,4 @@
+#include "monty.h"
 /**
  * parse_line - generate a NULL terminated array containing the words in a
  * string
@@ -28,7 +29,7 @@ char **parse_line(char *str, char *delim)
 	if (head == NULL)
 	{
 		/* print malloc failed error */
-		dprintf("Error: malloc failed\n");
+		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		free(full_str);
 		exit(EXIT_FAILURE);
 	}
@@ -37,7 +38,7 @@ char **parse_line(char *str, char *delim)
 	if (ptr_arr == NULL)
 	{
 		/* print malloc failed error */
-		dprintf("Error: malloc failed\n");
+		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		free(full_str);
 		exit(EXIT_FAILURE);
 	}

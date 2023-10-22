@@ -23,7 +23,7 @@ void add_func(stack_t **stack_top, unsigned int line_number)
 	sum = ptr->n + ptr->next->n;
 	while (count)
 	{
-		pop_funct(stack_top, line_number);
+		pop_func(stack_top, line_number);
 		count--;
 	}
 	bytecode_arr[1] = sum;

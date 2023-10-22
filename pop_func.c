@@ -12,7 +12,7 @@ void pop_func(stack_t **stack_top, unsigned int line_number)
 	line_number--;
 	if (!stack_top || *stack_top == NULL)
 	{
-		dprintf(STDERR_FILENO, " L%lu: can't pop an empty stack\n", line_number);
+		dprintf(STDERR_FILENO, " L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	free_node(stack_top);

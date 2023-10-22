@@ -22,16 +22,16 @@ void (*accept(char *token))(stack_t **stack, unsigned int line_number)
 		{NULL, NULL},
 	};
 	/* loop through the array, compare and return corresponding function */
-	for (i = 0; stack_arr[i] != NULL; i++)
+	for (i = 0; stack_arr[i].opcode != NULL; i++)
 	{
 		if (strcmp(stack_arr[i].opcode, token) == 0)
 		{
-			return (stack_func[i].f);
+			return (stack_arr[i].f);
 		}
 	}
 	/* prints error to standard error stream */
 	dprintf(STDERR_FILENO, "L%lu: unknown instruction %s",
-			line_number, token)
+			line_number, token);
 	/*returns NULL instead of pointer to function */
 	return (NULL);
 }
