@@ -14,7 +14,7 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 
 	/* increase line number */
 	line_number += 1;
-	if (!stack)
+	if (!stack_top)
 	{
 		dprintf(STDERR_FILENO, "Error: malloc failed");
 		exit(EXIT_FAILURE);
@@ -37,13 +37,13 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 	}
 	new->prev = NULL;
 	new->next = NULL;
-	if (*stack == NULL)
-		*stack = new;
+	if (*stack_top == NULL)
+		*stack_top = new;
 	else
 	{
-		temp = *stack;
-		stack->prev = new;
-		new->next = *stack;
-		*stack = new;
+		temp = *stack_top;
+		(*stack_top)->prev = new;
+		new->next = *stack_top;
+		*stack_top = new;
 	}
 }
