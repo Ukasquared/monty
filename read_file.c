@@ -30,8 +30,6 @@ int execute_op(arr_t *dt, size_t line_c)
 						line_c);
 				return (-1);
 			}
-<<<<<<< HEAD
-=======
 
 			num = atoi(dt->arr_toks[1]);
 			f = accept(dt->arr_toks[0]);
@@ -39,7 +37,6 @@ int execute_op(arr_t *dt, size_t line_c)
 			/* free the arr struct */
 			free_arr_struct(dt);
 			return (1);
->>>>>>> refs/remotes/origin/main
 		}
 
 		if (isdigit(dt->arr_toks[1][0]) == 0)
