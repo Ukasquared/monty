@@ -82,7 +82,7 @@ int main(int ac, char *av[])
 		}
 	}
 
-	printf("%d\n", i);
+	/*printf("%d\n", i);*/
 
 	/* exit program */
 	fclose(f);

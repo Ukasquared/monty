@@ -70,7 +70,7 @@ typedef struct list_s
 
 /* declare global variable for stack top */
 extern stack_t *stack_top;
-extern char *data;
+/*extern char *data;*/
 
 /* function prototypes */
 void (*accept(char *token))(stack_t **stack, unsigned int line_number);

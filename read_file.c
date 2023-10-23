@@ -18,37 +18,35 @@ int execute_op(arr_t *dt, size_t line_c)
 	void (*f)(stack_t **stack, unsigned int line_num);
 	int num = 0;
 
-	if (dt->arr_size > 2)
+	/* if (dt->arr_size > 2) */
+	if (strcmp(dt->arr_toks[0], "push") == 0)
 	{
-		if (strcmp(dt->arr_toks[0], "push") == 0)
+		/* negative number */
+		if (dt->arr_toks[1][0] == '-')
 		{
-			/* negative number */
-			if (dt->arr_toks[1][0] == '-')
-			{
-				if (isdigit(dt->arr_toks[1][1]) == 0)
-				{
-					dprintf(STDERR_FILENO, "L<%lu>: usage push integer\n",
-							line_c);
-					return (-1);
-				}
-			}
-
-			if (isdigit(dt->arr_toks[1][0]) == 0)
+			if (isdigit(dt->arr_toks[1][1]) == 0)
 			{
 				dprintf(STDERR_FILENO, "L<%lu>: usage push integer\n",
 						line_c);
 				return (-1);
 			}
-
-			num = atoi(dt->arr_toks[1]);
-			f = accept(dt->arr_toks[0]);
-			f(&stack_top, num);
-			return (1);
 		}
+
+		if (isdigit(dt->arr_toks[1][0]) == 0)
+		{
+			dprintf(STDERR_FILENO, "L<%lu>: usage push integer\n",
+					line_c);
+			return (-1);
+		}
+
+		num = atoi(dt->arr_toks[1]);
+		f = accept(dt->arr_toks[0]);
+		f(&stack_top, num);
+		return (1);
 	}
 
 	f = accept(dt->arr_toks[0]);
-	f(&stack_top);
+	f(&stack_top, line_c);
 
 	return (1);
 }

@@ -12,11 +12,11 @@ void pall_func(stack_t **stack_top, unsigned int line_number)
 	stack_t *ptr;
 
 	/* check if null was passed into the function */
-	if (!stack_top || *stack_top == NULL)
+	/* if (!stack_top || *stack_top == NULL)
 	{
 		dprintf(STDERR_FILENO, "L%u: usage: pall\n", line_number);
 		exit(EXIT_FAILURE);
-	}
+	} */
 	ptr = *stack_top;
 	while (ptr != NULL)
 	{

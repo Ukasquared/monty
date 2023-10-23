@@ -16,7 +16,7 @@ void free_node(stack_t **stack_head)
 
 	if (stack_head && *stack_head)
 	{
-		if ((*stack_head)->next != NULL)
+		if (*stack_head != NULL)
 		{
 			currentNode = *stack_head;
 			*stack_head = (*stack_head)->next;
