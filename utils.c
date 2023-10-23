@@ -1,6 +1,30 @@
 #define _POSIX_C_SOURCE 200809L
 #include "monty.h"
 /**
+ * free_arr_struct - free allocated memory
+ * @data: ..
+ *
+ * Return: returns nothing
+ */
+void free_arr_struct(arr_t *data)
+{
+	char **arr;
+	size_t n;
+
+	n = 0;
+	arr = data->arr_toks;
+	/* free 2D array */
+	while (arr[n] != NULL)
+	{
+		free(arr[n]);
+		n++;
+	}
+	free(arr);
+
+	/* free struct */
+	free(data);
+}
+/**
  * over_write_nl - search for the newline character in a string and replaces it
  * with a null byte character
  * @str: pointer to the string

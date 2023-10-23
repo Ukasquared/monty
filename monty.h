@@ -92,5 +92,6 @@ void pop_func(stack_t **stack_top, unsigned int line_number);
 void push_func(stack_t **stack_top, unsigned int line_number);
 void swap_func(stack_t **stack_top, unsigned int line_number);
 void over_write_nl(char *str);
+void free_arr_struct(arr_t *data);
 
 #endif

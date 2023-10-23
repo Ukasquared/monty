@@ -43,6 +43,8 @@ int execute_op(arr_t *dt, size_t line_c)
 			num = atoi(dt->arr_toks[1]);
 			f = accept(dt->arr_toks[0]);
 			f(&stack_top, num);
+			/* free the arr struct */
+			free_arr_struct(dt);
 			return (1);
 		}
 	}
