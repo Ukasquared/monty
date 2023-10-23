@@ -7,15 +7,17 @@
  *
  * Return: returns pointer to an array of pointers or exits the program
  */
-char **parse_line(char *str, char *delim)
+arr_t *parse_line(char *str, char *delim)
 {
 	/* declare variables */
-	char *full_str, **ptr_arr;
+	char *full_str;
 	list_t *head;
+	arr_t *arr_data;
 
 	/* initialize variables */
 	full_str = str;
 	head = NULL;
+	arr_data = NULL;
 
 	/* confirm argument passed is not empty */
 	if (full_str == NULL || *full_str == '\0')
@@ -34,8 +36,8 @@ char **parse_line(char *str, char *delim)
 		exit(EXIT_FAILURE);
 	}
 
-	ptr_arr = create_token_arr(head);
-	if (ptr_arr == NULL)
+	arr_data = create_token_arr(head);
+	if (arr_data == NULL)
 	{
 		/* print malloc failed error */
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
@@ -46,5 +48,5 @@ char **parse_line(char *str, char *delim)
 	/* free input buffer */
 	free(full_str);
 
-	return (ptr_arr);
+	return (arr_data);
 }

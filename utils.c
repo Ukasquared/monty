@@ -1,6 +1,31 @@
 #define _POSIX_C_SOURCE 200809L
 #include "monty.h"
 /**
+ * over_write_nl - search for the newline character in a string and replaces it
+ * with a null byte character
+ * @str: pointer to the string
+ *
+ * Return: returns Nothings
+ */
+void over_write_nl(char *str)
+{
+	/* declare variables */
+	char *newline_str;
+	size_t idx;
+
+	/* initialize variables */
+	newline_str = str;
+	idx = 0;
+
+
+	/* get index of new line character */
+	while (newline_str[idx] != '\n')
+		idx++;
+
+	/* overwrite the newline character with a null byte */
+	newline_str[idx] = '\0';
+}
+/**
  * is_empty_string - checks if a string has any non-delimiter character
  * @str: pointer to the string
  * @delim: pointer to the delimiter character
@@ -60,21 +85,25 @@ list_t *create_token_list(char *str, char *delim)
  *
  * Return: return an array of pointer or NULL otherwise
  */
-char **create_token_arr(list_t *h)
+arr_t *create_token_arr(list_t *h)
 {
 	/* declare variables */
 	list_t *temp;
 	char **ptr_arr;
+	arr_t *arr_data;
 	size_t arr_size, arr_idx;
 
 	/* initialize variables */
 	temp = h;
 	arr_idx = 0;
+	errno = 0;
+	arr_data = NULL;
 	arr_size = list_len(h) + 1;
 
 	ptr_arr = malloc(sizeof(char *) * arr_size);
 	if (ptr_arr == NULL)
 		return (NULL);
+	arr_data = malloc(sizeof(arr_t));
 
 	while (temp != NULL)
 	{
@@ -91,5 +120,10 @@ char **create_token_arr(list_t *h)
 	ptr_arr[arr_idx] = NULL;
 
 	free_list(h);
-	return (ptr_arr);
+	/* populate arr_data struct */
+	arr_data->arr_size = arr_size;
+	arr_data->arr_toks = ptr_arr;
+
+	return (arr_data);
 }
+

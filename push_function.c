@@ -12,29 +12,15 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 	/* declare the stack_t pointers */
 	stack_t *new;
 
-	/* increase line number */
-	line_number += 1;
-	if (!stack_top)
-	{
-		dprintf(STDERR_FILENO, "Error: malloc failed");
-		exit(EXIT_FAILURE);
-	}
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
+		/* free arr struct */
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	/* check if an integer is passed */
-	if (bytecode_arr[1] != -1 && atoi(bytecode_arr[1]))
-	{
-		new->n = atoi(bytecode_arr[1]);
-	}
-	else
-	{
-		dprintf(STDERR_FILENO, "L%u: usage: push integer", line_number);
-		exit(EXIT_FAILURE);
-	}
+	new->n = line_number;
 	new->prev = NULL;
 	new->next = NULL;
 	if (*stack_top == NULL)

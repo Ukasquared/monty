@@ -1,5 +1,7 @@
 #include "monty.h"
+
 stack_t *stack_top = NULL;
+char *data;
 
 /**
  * open_file - open a file
@@ -7,12 +9,12 @@ stack_t *stack_top = NULL;
  *
  * Return: return file deescriptor or exit if file can't be open
  */
-int open_file(char *file)
+FILE *open_file(char *file)
 {
 
-	int fd, f_status;
+	int f_status;
+	FILE *f;
 
-	fd = -1;
 	f_status = -1;
 
 	if (file == NULL)
@@ -29,14 +31,14 @@ int open_file(char *file)
 		exit(EXIT_FAILURE);
 	}
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	f = fopen(file, "r");
+	if (f == NULL)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't open file <%s>\n", file);
 		exit(EXIT_FAILURE);
 	}
 
-	return (fd);
+	return (f);
 }
 
 /**
@@ -49,32 +51,40 @@ int open_file(char *file)
 int main(int ac, char *av[])
 {
 	/* declare variables */
-	int fd, status; /*f_status */
+	int status, i; /*f_status */
+	FILE *f;
+	size_t line_num;
 
+	i = 0;
+	line_num = 0;
 	if (ac != 2)
 	{
 		dprintf(STDERR_FILENO, "Usage: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 
-	fd = open_file(av[1]);
+	f = open_file(av[1]);
 
 	/* read file lines */
 	while (1)
 	{
-		status = process_file_line(fd);
+		i++;
+		line_num++;
+		status = process_file_line(f, line_num);
 		/* perform error check */
 		if (status == 0)
 			break;
 		if (status == -1)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't read file <%s>\n", av[1]);
-			close(fd);
+			fclose(f);
 			exit(EXIT_FAILURE);
 		}
 	}
 
+	printf("%d\n", i);
+
 	/* exit program */
-	close(fd);
+	fclose(f);
 	exit(EXIT_SUCCESS);
 }

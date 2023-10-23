@@ -9,8 +9,8 @@
 
 void add_func(stack_t **stack_top, unsigned int line_number)
 {
-	int sum, count;
-	stack_t *ptr;
+	int count;
+	/*stack_t *ptr;*/
 
 	count = 2;
 
@@ -19,13 +19,12 @@ void add_func(stack_t **stack_top, unsigned int line_number)
 		dprintf(STDERR_FILENO, "L%u: can't add, stack too short", line_number);
 		exit(EXIT_FAILURE);
 	}
-	ptr = *stack_top;
-	sum = ptr->n + ptr->next->n;
+	/*ptr = *stack_top;*/
+	/*sum = ptr->n + ptr->next->n;*/
 	while (count)
 	{
 		pop_func(stack_top, line_number);
 		count--;
 	}
-	bytecode_arr[1] = sum;
 	push_func(stack_top, line_number);
 }
