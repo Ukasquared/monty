@@ -41,7 +41,6 @@ void over_write_nl(char *str)
 	newline_str = str;
 	idx = 0;
 
-
 	/* get index of new line character */
 	while (newline_str[idx] != '\n')
 		idx++;
@@ -128,6 +127,8 @@ arr_t *create_token_arr(list_t *h)
 	if (ptr_arr == NULL)
 		return (NULL);
 	arr_data = malloc(sizeof(arr_t));
+	if (arr_data == NULL)
+		return (NULL);
 
 	while (temp != NULL)
 	{
@@ -150,4 +151,3 @@ arr_t *create_token_arr(list_t *h)
 
 	return (arr_data);
 }
-

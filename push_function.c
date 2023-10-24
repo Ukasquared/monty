@@ -11,7 +11,9 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 {
 	/* declare the stack_t pointers */
 	stack_t *new;
+	(void)line_number;
 
+	line_count++;
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
@@ -20,7 +22,7 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	/* check if an integer is passed */
-	new->n = line_number;
+	new->n = num;
 	new->prev = NULL;
 	new->next = NULL;
 	if (*stack_top == NULL)

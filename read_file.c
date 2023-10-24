@@ -1,6 +1,8 @@
-#define _XOPEN_SOURCE 700
 #include "monty.h"
 #include <ctype.h>
+
+int num = 0;
+
 /**
  * execute_op - executes the opcode function
  * @dt: data structure containing details of the bytecode
@@ -13,42 +15,38 @@
  * Return: returns 1 on success or -1 on error
  */
 
-int execute_op(arr_t *dt, size_t line_c)
+int execute_op(arr_t *dt, unsigned int line_c)
 {
 	void (*f)(stack_t **stack, unsigned int line_num);
-	int num = 0;
 
-	/* if (dt->arr_size > 2) */
-	if (strcmp(dt->arr_toks[0], "push") == 0)
+	if (strcmp(dt->arr_toks[0], "push") == 0 && dt->arr_toks[1])
 	{
 		/* negative number */
 		if (dt->arr_toks[1][0] == '-')
 		{
 			if (isdigit(dt->arr_toks[1][1]) == 0)
 			{
-				dprintf(STDERR_FILENO, "L<%lu>: usage push integer\n",
-						line_c);
+				dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_c);
 				return (-1);
 			}
 
 			num = atoi(dt->arr_toks[1]);
 			f = accept(dt->arr_toks[0]);
-			f(&stack_top, num);
+			f(&stack_top, line_c);
 			/* free the arr struct */
-			free_arr_struct(dt);
+			/* free_arr_struct(dt); */
 			return (1);
 		}
 
 		if (isdigit(dt->arr_toks[1][0]) == 0)
 		{
-			dprintf(STDERR_FILENO, "L<%lu>: usage push integer\n",
-					line_c);
+			dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_c);
 			return (-1);
 		}
 
 		num = atoi(dt->arr_toks[1]);
 		f = accept(dt->arr_toks[0]);
-		f(&stack_top, num);
+		f(&stack_top, line_c);
 		return (1);
 	}
 
@@ -64,7 +62,7 @@ int execute_op(arr_t *dt, size_t line_c)
  *
  * Return: ..
  */
-int process_file_line(FILE *f, size_t line_count)
+int process_file_line(FILE *f, unsigned int line_count)
 {
 	ssize_t supply_count;
 	char *lineptr;
@@ -84,6 +82,7 @@ int process_file_line(FILE *f, size_t line_count)
 	/* perform error checks */
 	if (supply_count == -1)
 	{
+
 		if (errno != 0)
 		{
 			free(lineptr);
@@ -99,14 +98,16 @@ int process_file_line(FILE *f, size_t line_count)
 	/* parse the line read from file*/
 	bcode_dt = parse_line(lineptr, " ");
 	/* error check for empty line in file */
-	if (bcode_dt->arr_toks[0] == NULL)
+	if (bcode_dt == NULL)
 		return (1);
 	/* error check for invalid opcode */
 	if (accept(bcode_dt->arr_toks[0]) == NULL)
 	{
+
 		/* print invalid instruction error message */
-		dprintf(STDERR_FILENO, "L<%lu>: unknown instruction <%s>\n",
-				line_count, bcode_dt->arr_toks[0]);
+		dprintf(STDERR_FILENO, "L%u: unknown instruction %s\n", line_count, bcode_dt->arr_toks[0]);
+		free_arr(bcode_dt->arr_toks);
+		free(bcode_dt);
 		fclose(f);
 		exit(EXIT_FAILURE);
 	}
@@ -114,7 +115,13 @@ int process_file_line(FILE *f, size_t line_count)
 	/* execute op code */
 	op_stat = execute_op(bcode_dt, line_count);
 	if (op_stat == -1)
+	{
+		free_arr(bcode_dt->arr_toks);
+		free(bcode_dt);
 		return (-1);
+	}
 
+	free_arr(bcode_dt->arr_toks);
+	free(bcode_dt);
 	return (1);
 }
