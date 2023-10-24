@@ -70,17 +70,18 @@ typedef struct list_s
 
 /* declare global variable for stack top */
 extern stack_t *stack_top;
-/*extern char *data;*/
+extern int num;
+extern unsigned int line_count;
 
 /* function prototypes */
 void (*accept(char *token))(stack_t **stack, unsigned int line_number);
-
+void free_arr(char **arr);
 ssize_t is_empty_string(char *str, char *delim);
 list_t *create_token_list(char *str, char *delim);
 arr_t *create_token_arr(list_t *h);
 list_t *add_node_end(list_t **head, const char *str);
 void free_list(list_t *head);
-int process_file_line(FILE *f, size_t line_count);
+int process_file_line(FILE *f, unsigned int line_count);
 ssize_t _getline(char **lineptr, size_t *n, int fd);
 arr_t *parse_line(char *str, char *delim);
 size_t list_len(const list_t *h);
@@ -92,6 +93,7 @@ void pop_func(stack_t **stack_top, unsigned int line_number);
 void push_func(stack_t **stack_top, unsigned int line_number);
 void swap_func(stack_t **stack_top, unsigned int line_number);
 void over_write_nl(char *str);
+int execute_op(arr_t *dt, unsigned int line_c);
 void free_arr_struct(arr_t *data);
 
 #endif
