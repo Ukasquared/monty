@@ -108,7 +108,7 @@ int process_file_line(FILE *f, unsigned int line_count)
 	/* error check for invalid opcode */
 	if (accept(bcode_dt->arr_toks[0]) == NULL)
 	{
-
+		line_count++;
 		/* print invalid instruction error message */
 		dprintf(STDERR_FILENO, "L%u: unknown instruction %s\n", line_count, bcode_dt->arr_toks[0]);
 		free_arr(bcode_dt->arr_toks);
