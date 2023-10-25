@@ -26,6 +26,7 @@ int execute_op(arr_t *dt, unsigned int line_c)
 		{
 			if (isdigit(dt->arr_toks[1][1]) == 0)
 			{
+				line_c++;
 				dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_c);
 				return (-1);
 			}
@@ -40,6 +41,7 @@ int execute_op(arr_t *dt, unsigned int line_c)
 
 		if (isdigit(dt->arr_toks[1][0]) == 0)
 		{
+			line_c++;
 			dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_c);
 			return (-1);
 		}
@@ -99,7 +101,10 @@ int process_file_line(FILE *f, unsigned int line_count)
 	bcode_dt = parse_line(lineptr, " ");
 	/* error check for empty line in file */
 	if (bcode_dt == NULL)
+	{
+		free(lineptr);
 		return (1);
+	}
 	/* error check for invalid opcode */
 	if (accept(bcode_dt->arr_toks[0]) == NULL)
 	{
