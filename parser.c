@@ -42,6 +42,7 @@ arr_t *parse_line(char *str, char *delim)
 		/* print malloc failed error */
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		free(full_str);
+		free_list(head);
 		exit(EXIT_FAILURE);
 	}
 

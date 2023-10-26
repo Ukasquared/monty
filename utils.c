@@ -99,7 +99,6 @@ list_t *create_token_list(char *str, char *delim)
 			return (NULL);
 		token = strtok(NULL, delim);
 	}
-
 	return (head);
 }
 /**
@@ -136,6 +135,8 @@ arr_t *create_token_arr(list_t *h)
 		if (ptr_arr[arr_idx] == NULL && errno == ENOMEM)
 		{
 			free_list(h);
+			free(ptr_arr);
+			free(arr_data);
 			return (NULL);
 		}
 		arr_idx++;

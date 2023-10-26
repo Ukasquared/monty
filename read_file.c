@@ -90,6 +90,7 @@ int process_file_line(FILE *f, unsigned int line_count)
 			free(lineptr);
 			return (-1);
 		}
+		free(lineptr);
 		return (0);
 	}
 
