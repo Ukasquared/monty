@@ -28,14 +28,17 @@ int execute_op(arr_t *dt, unsigned int line_c)
 			{
 				line_c++;
 				dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_c);
-				return (-1);
+				/*free struct and stack, and exit*/
+				free_arr_struct(dt);
+				free_stack(stack_top);
+				exit(EXIT_FAILURE);
 			}
 
 			num = atoi(dt->arr_toks[1]);
 			f = accept(dt->arr_toks[0]);
 			f(&stack_top, line_c);
-			/* free the arr struct */
-			/* free_arr_struct(dt); */
+			/* free the arr struct and stack*/
+			free_arr_struct(dt);
 			return (1);
 		}
 
@@ -43,18 +46,24 @@ int execute_op(arr_t *dt, unsigned int line_c)
 		{
 			line_c++;
 			dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_c);
-			return (-1);
+			/*free struct and stack and exit*/
+			free_arr_struct(dt);
+			free_stack(stack_top);
+			exit(EXIT_FAILURE);
 		}
 
 		num = atoi(dt->arr_toks[1]);
 		f = accept(dt->arr_toks[0]);
 		f(&stack_top, line_c);
+		/*free arr strut*/
+		free_arr_struct(dt);
 		return (1);
 	}
 
 	f = accept(dt->arr_toks[0]);
 	f(&stack_top, line_c);
-
+	/*free arr toks*/
+	free_arr_struct(dt);
 	return (1);
 }
 /**
@@ -70,14 +79,12 @@ int process_file_line(FILE *f, unsigned int line_count)
 	char *lineptr;
 	size_t n;
 	arr_t *bcode_dt;
-	int op_stat;
 
 	/* initialize variables */
 	supply_count = 0;
 	lineptr = NULL;
 	n = 0;
 	errno = 0;
-	op_stat = 0;
 
 	/* get line from file */
 	supply_count = getline(&lineptr, &n, f);
@@ -112,22 +119,17 @@ int process_file_line(FILE *f, unsigned int line_count)
 		line_count++;
 		/* print invalid instruction error message */
 		dprintf(STDERR_FILENO, "L%u: unknown instruction %s\n", line_count, bcode_dt->arr_toks[0]);
-		free_arr(bcode_dt->arr_toks);
-		free(bcode_dt);
+		free_arr_struct(bcode_dt);
 		fclose(f);
 		exit(EXIT_FAILURE);
 	}
-
 	/* execute op code */
-	op_stat = execute_op(bcode_dt, line_count);
-	if (op_stat == -1)
+	execute_op(bcode_dt, line_count);
+	/* if (op_stat == -1)
 	{
-		free_arr(bcode_dt->arr_toks);
-		free(bcode_dt);
+		free_arr_struct(bcode_dt);
 		return (-1);
-	}
-
-	free_arr(bcode_dt->arr_toks);
-	free(bcode_dt);
+	} */
+	free_arr_struct(bcode_dt);
 	return (1);
 }

@@ -95,5 +95,5 @@ void swap_func(stack_t **stack_top, unsigned int line_number);
 void over_write_nl(char *str);
 int execute_op(arr_t *dt, unsigned int line_c);
 void free_arr_struct(arr_t *data);
-
+void free_stack(stack_t *stack);
 #endif

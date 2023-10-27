@@ -18,6 +18,7 @@ void push_func(stack_t **stack_top, unsigned int line_number)
 	if (new == NULL)
 	{
 		/* free arr struct */
+		free_stack(*stack_top);
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
